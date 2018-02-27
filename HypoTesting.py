@@ -12,7 +12,7 @@ def NormalTest(Smean, mean, sd, samples):
     pH1 = 1 - pH0
     Print(pH0, pH1)
 
-def DiffMeans2dist(mean1, sd1, S1, mean2, sd2, S2, confidence):
+def DiffMeans2distMore(mean1, sd1, S1, mean2, sd2, S2, confidence):
     alpha = 1 - confidence
     z = stats.norm.ppf(alpha)
     var1 = sd1**2
@@ -26,6 +26,22 @@ def DiffMeans2dist(mean1, sd1, S1, mean2, sd2, S2, confidence):
         print("Accept H0, Reject H1")
     else:
         print("Reject H0, Accept H1")
+
+def DiffMeans2distLess(mean1, sd1, S1, mean2, sd2, S2, confidence):
+    alpha = 1 - confidence
+    z = stats.norm.ppf(alpha)
+    var1 = sd1**2
+    var2 = sd2**2
+    sd = math.sqrt(var1/S1 + var2/S2)
+    NullMeanDiff = z * sd
+    MeanDiff = mean1 - mean2
+    print("Null Mean Difference: " + str(NullMeanDiff))
+    print("Actual Mean Difference: " + str(MeanDiff))
+    if NullMeanDiff <= MeanDiff:
+        print("Accept H0, Reject H1")
+    else:
+        print("Reject H0, Accept H1")
+
 
 def DiffMeansMore(smean, mean, sd, n, significance):
     t  = abs( stats.t.ppf(significance, n-1) )
