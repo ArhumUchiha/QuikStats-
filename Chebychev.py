@@ -2,18 +2,21 @@ def getK(num, mean, sd):
     diff = (num - mean)
     K = diff/sd
 
-    return K
+    return abs(K)
+
+def WithinK(K):
+    return 1 - (1/(K**2))
 
 def Within(num, mean, sd):
     K = getK(num, mean, sd)
-    return 1 - (1/(K**2))
+    return WithinK(K)
 
 def PLess(num, mean, sd):
     Pwithin = Within(num, mean, sd)
     if num >= mean:
         return (Pwithin/2) + 0.5
     else:
-        return 1 - (Pwithin/2)
+        return 1 - ((Pwithin/2) + 0.5)
 
 def PMore(num, mean, sd):
     return 1 - PLess(num, mean, sd)
