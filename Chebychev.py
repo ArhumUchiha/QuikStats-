@@ -7,6 +7,9 @@ def getK(num, mean, sd):
 def WithinK(K):
     return 1 - (1/(K**2))
 
+def OutsideK(K):
+    return 1 - WithinK(K)
+
 def Within(num, mean, sd):
     K = getK(num, mean, sd)
     return WithinK(K)
