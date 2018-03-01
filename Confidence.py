@@ -9,3 +9,7 @@ def CI(smean, sd, confidence, Samples):
     LowerBound = smean - MarginOfError
     UpperBound = smean + MarginOfError
     return str(LowerBound) + " " + str(UpperBound)
+
+def CIlist(obs, sd, confidence):
+    smean = numpy.mean(obs)
+    CI(smean, sd, confidence, len(obs))
