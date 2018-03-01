@@ -1,6 +1,7 @@
 import NormalDist  as Norm 
 import scipy.stats as stats
-import math        as math
+import math
+import PC
 
 
 def Print(pH0, pH1):
@@ -58,3 +59,28 @@ def DiffMeansLess(smean, mean, sd, n, significance):
         print("Evidence for H1")
     else:
         print("No Evidence for H1")
+
+def BinTestLess(n, s, p, confidence):
+    alpha = 1 - confidence
+    P = stats.binom.cdf(s, n, p)
+    if P > alpha:
+        return "Ho"
+    else:
+        return "Ha"
+
+def BinTestMore(n, s, p, confidence):
+    alpha = 1 - confidence
+    P = 1 - stats.binom.cdf(s-1, n, p)
+    if P > alpha:
+        return "Ho"
+    else:
+        return "Ha"
+
+def BinTestTT(n, s, p, confidence):
+    alpha = 1 - confidence
+    Lower  = PC.LowerReject(n, p, alpha)
+    Higher = PC.HigherReject(n, p, alpha)
+    if Lower <= s and s <= Higher:
+        return "Ho"
+    else:
+        return "Ha"
