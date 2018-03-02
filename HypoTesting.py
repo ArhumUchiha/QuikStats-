@@ -46,6 +46,7 @@ def DiffMeans2distLess(mean1, sd1, S1, mean2, sd2, S2, confidence):
 
 def DiffMeansMore(smean, mean, sd, n, significance):
     t  = abs( stats.t.ppf(significance, n-1) )
+    print(t)
     ts = Norm.getZ(smean, mean, (sd/math.sqrt(n)))
     if ts > t:
         print("Evidence for H1")
@@ -80,7 +81,7 @@ def BinTestTT(n, s, p, confidence):
     alpha = 1 - confidence
     Lower  = PC.LowerReject(n, p, alpha)
     Higher = PC.HigherReject(n, p, alpha)
-    if Lower <= s and s <= Higher:
+    if Lower < s and s < Higher:
         return "Ho"
     else:
         return "Ha"
